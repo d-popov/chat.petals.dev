@@ -19,9 +19,10 @@ MODELS = [
     ModelInfo(repo="meta-llama/Llama-2-70b-chat-hf"),
     ModelInfo(repo="huggyllama/llama-65b", adapter="timdettmers/guanaco-65b"),
     ModelInfo(repo="huggyllama/llama-65b"),
+    ModelInfo(repo="codellama/CodeLlama-34b-Instruct-hf"),
     ModelInfo(repo="bigscience/bloomz"),
 ]
-DEFAULT_MODEL_NAME = "huggyllama/llama-65b"
+DEFAULT_MODEL_NAME = "codellama/CodeLlama-34b-Instruct-hf"
 
 INITIAL_PEERS = PUBLIC_INITIAL_PEERS
 # Set this to a list of multiaddrs to connect to a private swarm instead of the public one, for example:
