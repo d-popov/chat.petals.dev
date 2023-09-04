@@ -1,8 +1,10 @@
+import os
 import hivemind
 from flask import Flask
 from flask_cors import CORS
 from flask_sock import Sock
 from transformers import AutoTokenizer
+
 
 from petals import AutoDistributedModelForCausalLM
 
@@ -13,7 +15,7 @@ logger = hivemind.get_logger(__file__)
 
 models = {}
 for model_info in config.MODELS:
-    logger.info(f"Loading tokenizer for {model_info.repo}")
+    logger.info(f"chat: Loading tokenizer for {model_info.repo}")
     tokenizer = AutoTokenizer.from_pretrained(model_info.repo, add_bos_token=False, use_fast=False)
 
     logger.info(f"Loading model {model_info.repo} with adapter {model_info.adapter} and dtype {config.TORCH_DTYPE}")
@@ -32,7 +34,7 @@ for model_info in config.MODELS:
         model_name = model_info.adapter if model_info.adapter is not None else model_info.repo
     models[model_name] = model, tokenizer
 
-logger.info("Starting Flask app")
+logger.info("Starting Flask chat app")
 app = Flask(__name__)
 CORS(app)
 app.config['SOCK_SERVER_OPTIONS'] = {'ping_interval': 25}
@@ -46,3 +48,8 @@ def main_page():
 
 import http_api
 import websocket_api
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Default port is 5000
+    app.run(host='0.0.0.0', port=port)
