@@ -27,7 +27,7 @@ DEFAULT_MODEL_NAME = "WizardLM/WizardCoder-Python-13B-V1.0"
 
 INITIAL_PEERS = PUBLIC_INITIAL_PEERS
 # Set this to a list of multiaddrs to connect to a private swarm instead of the public one, for example:
-# INITIAL_PEERS = ['/ip4/10.1.2.3/tcp/31234/p2p/QmcXhze98AcgGQDDYna23s4Jho96n8wkwLJv78vxtFNq44']
+INITIAL_PEERS = ['/ip4/20.101.62.76/tcp/31337/p2p/QmRHP8PQbGCHV7zwBWH2bPipsYfJx44Eo87kdgyteug5Bs','/ip4/92.247.170.10/tcp/31337/p2p/QmSXEQzmS61WcFF6PaFu4NJdwGwtDSPQ67ErGKjTkcTSay']
 
 DEVICE = "cpu"
 
