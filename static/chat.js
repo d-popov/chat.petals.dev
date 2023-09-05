@@ -7,6 +7,14 @@ const models = {
     stopToken: "###",
     extraStopSequences: ["</s>"],
   },
+  "WizardLM/WizardCoder-Python-13B-V1.0": {
+    modelCard: "https://huggingface.co/WizardLM/WizardCoder-Python-13B-V1.0",
+    license: "https://bit.ly/llama2-license",
+    maxSessionLength: 8192,
+    sepToken: "###",
+    stopToken: "###",
+    extraStopSequences: ["</s>"],
+  },
   "meta-llama/Llama-2-70b-chat-hf": {
     modelCard: "https://huggingface.co/meta-llama/Llama-2-70b-chat-hf",
     license: "https://bit.ly/llama2-license",

@@ -8,7 +8,7 @@
             "name": "conda(petals): Current File",
             "type": "python",
             "request": "launch",
-            "pythonPath": "/config/miniconda3/envs/petals/bin/python",
+            "python": "/config/miniconda3/envs/petals/bin/python",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
