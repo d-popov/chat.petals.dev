@@ -16,15 +16,10 @@ class ModelInfo:
 
 MODELS = [
     # ModelInfo(repo="petals-team/StableBeluga2", name="stabilityai/StableBeluga2"),
-    # ModelInfo(repo="meta-llama/Llama-2-70b-chat-hf"),
-    # ModelInfo(repo="huggyllama/llama-65b", adapter="timdettmers/guanaco-65b"),
-    # ModelInfo(repo="huggyllama/llama-65b"),
-    # ModelInfo(repo="codellama/CodeLlama-34b-Instruct-hf"),
-    # ModelInfo(repo="bigscience/bloomz"),
-    ModelInfo(repo="tiiuae/falcon-180B-chat"),
-    ModelInfo(repo="WizardLM/WizardCoder-3B-V1.0"),
+    # ModelInfo(repo="tiiuae/falcon-180B-chat"),
+    # ModelInfo(repo="WizardLM/WizardCoder-3B-V1.0"),
     ModelInfo(repo="WizardLM/WizardCoder-Python-13B-V1.0"),
-    ModelInfo(repo="WizardLM/WizardCoder-Python-34B-V1.0"),
+    # ModelInfo(repo="WizardLM/WizardCoder-Python-34B-V1.0"),
 ]
 DEFAULT_MODEL_NAME = "WizardLM/WizardCoder-Python-13B-V1.0"
 
