@@ -3,7 +3,6 @@ from typing import Optional
 
 import torch
 
-from cpufeature import CPUFeature
 from petals.constants import PUBLIC_INITIAL_PEERS
 
 
@@ -29,9 +28,15 @@ INITIAL_PEERS = ['/ip4/20.101.62.76/tcp/31337/p2p/QmRHP8PQbGCHV7zwBWH2bPipsYfJx4
 
 DEVICE = "cpu"
 
+try:
+    from cpufeature import CPUFeature
+    has_avx512 = CPUFeature["AVX512f"] and CPUFeature["OS_AVX512"]
+except ImportError:
+    has_avx512 = False
+
 if DEVICE == "cuda":
     TORCH_DTYPE = "auto"
-elif CPUFeature["AVX512f"] and CPUFeature["OS_AVX512"]:
+elif has_avx512:
     TORCH_DTYPE = torch.bfloat16
 else:
     TORCH_DTYPE = torch.float32  # You can use bfloat16 in this case too, but it will be slow
