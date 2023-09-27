@@ -22,7 +22,7 @@ MODELS = [
     # ModelInfo(repo="WizardLM/WizardCoder-Python-34B-V1.0"),
     ModelInfo(repo="codellama/CodeLlama-34b-Instruct-hf"),
 ]
-DEFAULT_MODEL_NAME = "WizardLM/WizardCoder-Python-13B-V1.0"
+DEFAULT_MODEL_NAME = "codellama/CodeLlama-34b-Instruct-hf"
 
 INITIAL_PEERS = PUBLIC_INITIAL_PEERS
 # Set this to a list of multiaddrs to connect to a private swarm instead of the public one, for example:
@@ -37,5 +37,5 @@ elif CPUFeature["AVX512f"] and CPUFeature["OS_AVX512"]:
 else:
     TORCH_DTYPE = torch.float32  # You can use bfloat16 in this case too, but it will be slow
 
-STEP_TIMEOUT = 5 * 60
+STEP_TIMEOUT = 10 * 60
 MAX_SESSIONS = 50  # Has effect only for API v1 (HTTP-based)

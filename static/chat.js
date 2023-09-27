@@ -72,7 +72,7 @@ const models = {
   //   extraStopSequences: ["\n\nHuman"],
   // },
 };
-var curModel = "WizardLM/WizardCoder-Python-13B-V1.0";
+var curModel = "codellama/CodeLlama-34b-Instruct-hf";
 
 const generationParams = {
   do_sample: 1,
@@ -99,7 +99,7 @@ function openSession() {
   let protocol = location.protocol == "https:" ? "wss:" : "ws:";
   ws = new WebSocket(`${protocol}//${location.host}/api/v2/generate`);
   ws.onopen = () => {
-    ws.send(JSON.stringify({type: "open_inference_session", model: curModel, max_length: sessionLength}));
+    ws.send(JSON.stringify({ type: "open_inference_session", model: curModel, max_length: sessionLength }));
     ws.onmessage = event => {
       const response = JSON.parse(event.data);
       if (!response.ok) {
@@ -137,15 +137,15 @@ function sendReplica() {
     $('.human-replica:last').text($('.human-replica:last textarea').val());
     $('.dialogue').append($(
       '<p class="ai-replica">' +
-        `<span class="text">${aiPrompt}</span>` +
-        '<span class="loading-animation"></span>' +
-        '<span class="speed" style="display: none;"></span>' +
-        '<span class="generation-controls"><a class="stop-generation" href=#>stop generation</a></span>' +
-        '<span class="suggest-join" style="display: none;">' +
-          '<b>Too slow?</b> ' +
-          '<a target="_blank" href="https://github.com/bigscience-workshop/petals#connect-your-gpu-and-increase-petals-capacity">Connect your GPU</a> ' +
-          'and increase Petals capacity!' +
-        '</span>' +
+      `<span class="text">${aiPrompt}</span>` +
+      '<span class="loading-animation"></span>' +
+      '<span class="speed" style="display: none;"></span>' +
+      '<span class="generation-controls"><a class="stop-generation" href=#>stop generation</a></span>' +
+      '<span class="suggest-join" style="display: none;">' +
+      '<b>Too slow?</b> ' +
+      '<a target="_blank" href="https://github.com/bigscience-workshop/petals#connect-your-gpu-and-increase-petals-capacity">Connect your GPU</a> ' +
+      'and increase Petals capacity!' +
+      '</span>' +
       '</p>'));
     animateLoading();
     $('.stop-generation').click(e => {
@@ -170,9 +170,9 @@ function sendReplica() {
     if (el.is(".human-replica")) {
       phrase += models[curModel].sepToken;
     } else
-    if (i < replicaDivs.length - 1) {
-      phrase += models[curModel].stopToken;
-    }
+      if (i < replicaDivs.length - 1) {
+        phrase += models[curModel].stopToken;
+      }
     replicas.push(phrase);
   }
   const inputs = replicas.join("");
@@ -281,10 +281,12 @@ function retry() {
 
 function appendTextArea() {
   const humanPrompt = (curRegime === Regime.CHATBOT) ? "Human: " : "";
-  $('.dialogue').append($(
-    `<p class="human-replica"><textarea class="form-control" id="exampleTextarea" rows="2">${humanPrompt}</textarea></p>`
-  ));
-  upgradeTextArea();
+  if (!isWaitingForInputs()) {
+    $('.dialogue').append($(
+      `<p class="human-replica"><textarea class="form-control" id="exampleTextarea" rows="2">${humanPrompt}</textarea></p>`
+    ));
+    upgradeTextArea();
+  }
 }
 
 function upgradeTextArea() {
@@ -309,6 +311,33 @@ function animateLoading() {
   curFrame = (curFrame + 1) % animFrames.length;
 }
 
+function selectModel() {
+
+  if (!isWaitingForInputs()) {
+    alert("Can't switch the model while the AI is writing a response. Please refresh the page");
+    e.preventDefault();
+    return;
+  }
+
+  curModel = $(`#${$(this).attr("for")}`).attr("value") || curModel;
+  if (curRegime === Regime.CHATBOT) {
+    $('.dialogue p').slice(2).remove();
+  } else {
+    $('.dialogue').empty();
+  }
+
+  sessionLength = initialSessionLength;
+  resetSession();
+  appendTextArea();
+
+  $('.model-name')
+    .text($(this).text())
+    .attr('href', models[curModel].modelCard);
+  $('.license-link').attr('href', models[curModel].license);
+  setTimeout(() => $('.human-replica textarea').focus(), 10);
+}
+
+
 $(() => {
   upgradeTextArea();
 
@@ -332,28 +361,7 @@ $(() => {
     firstLabel.trigger('click');
   });
   $('.model-selector label').click(function (e) {
-    if (!isWaitingForInputs()) {
-      alert("Can't switch the model while the AI is writing a response. Please refresh the page");
-      e.preventDefault();
-      return;
-    }
-
-    curModel = $(`#${$(this).attr("for")}`).attr("value");
-    if (curRegime === Regime.CHATBOT) {
-      $('.dialogue p').slice(2).remove();
-    } else {
-      $('.dialogue').empty();
-    }
-
-    sessionLength = initialSessionLength;
-    resetSession();
-    appendTextArea();
-
-    $('.model-name')
-      .text($(this).text())
-      .attr('href', models[curModel].modelCard);
-    $('.license-link').attr('href', models[curModel].license);
-    setTimeout(() => $('.human-replica textarea').focus(), 10);
+    selectModel();
   });
   $('.retry-link').click(e => {
     e.preventDefault();
@@ -361,4 +369,5 @@ $(() => {
   });
 
   setInterval(animateLoading, 2000);
+  selectModel();
 });

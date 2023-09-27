@@ -133,7 +133,7 @@ main p {
   background-size: 35px;
 }
 
-.human-replica, .ai-replica, .welcome, .error-box {
+.human-replica, .ai-replica, .sys-replica, .welcome, .error-box {
   border: 1px solid #777;
   border-radius: 10px;
   padding: 10px 15px;
@@ -143,11 +143,11 @@ main p {
   word-wrap: break-word;
 }
 
-.human-replica, .ai-replica, .error-message {
+.human-replica, .ai-replica, .sys-replica, .error-message {
   white-space: pre-wrap;
 }
 
-.human-replica {
+.human-replica{
   background-color: #f7f7ff;
   margin-left: auto;
   margin-right: 0;
