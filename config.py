@@ -20,6 +20,7 @@ MODELS = [
     # ModelInfo(repo="WizardLM/WizardCoder-3B-V1.0"),
     ModelInfo(repo="WizardLM/WizardCoder-Python-13B-V1.0"),
     # ModelInfo(repo="WizardLM/WizardCoder-Python-34B-V1.0"),
+    ModelInfo(repo="codellama/CodeLlama-34b-Instruct-hf"),
 ]
 DEFAULT_MODEL_NAME = "WizardLM/WizardCoder-Python-13B-V1.0"
 

@@ -40,15 +40,21 @@
               <label class="btn btn-outline-primary" for="family-wizard">WizardLM</label>
               <!-- <input type="radio" class="btn-check" name="family" value="falcon" id="family-falcon" >
               <label class="btn btn-outline-primary" for="family-falcon">Falcon</label> -->
+              <input type="radio" class="btn-check" name="family" value="llama2" id="family-llama2" >
+              <label class="btn btn-outline-primary" for="family-llama2">LLAMA2</label>
             </div>
           </div>
           <div class="mt-2">
             <label class="group-label">Model:</label>
+            <div class="model-selector btn-group" role="group" data-family="llama2" style="display: none;">
+              <input type="radio" class="btn-check" name="model" value="codellama/CodeLlama-34b-Instruct-hf" id="codeLlama-34b-Instruct-hf">
+              <label class="btn btn-outline-primary" for="codeLlama-34b-Instruct-hf">codellama/CodeLlama-34b-Instruct-hf</label>
+            </div>
             <div class="model-selector btn-group" role="group" data-family="falcon">
               <!-- <input type="radio" class="btn-check" name="model" value="tiiuae/falcon-180B-chat" id="falcon-180B-chat">
               <label class="btn btn-outline-primary" for="falcon-180B-chat">Falcon 180B-Chat</label> -->
             </div>
-            <div class="model-selector btn-group" role="group" data-family="llama-2">
+            <div class="model-selector btn-group" role="group" data-family="wizard">
               <!-- <input type="radio" class="btn-check" name="model" value="WizardLM/WizardCoder-3B-V1.0" id="WizardCoder3B">
               <label class="btn btn-outline-primary" for="WizardCoder3B">WizardCoder 3B V1.0</label> -->
               <input type="radio" class="btn-check" name="model" value="WizardLM/WizardCoder-Python-13B-V1.0" id="WizardCoderPy13B" checked>
